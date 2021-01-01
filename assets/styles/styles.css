@@ -1,0 +1,122 @@
+@font-face{
+    font-family: airbnb;
+    src: url('../fonts/airbnb/AirbnbCerealMedium.ttf');
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+body,html{
+    height: 100vh;
+    font-family: airbnb !important;
+    overflow: hidden;
+}
+.selected .image-content{
+filter:brightness(0.3);
+transition: 0.2s;
+}
+.selected{
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    transition: 0.2s;
+    }
+.p-fixed{
+position: absolute;
+z-index: 1;
+}
+.image-content{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
+.card-img {
+    width: 100%;
+    height: 8vw;
+    object-fit: cover;
+}
+.flex-fill {
+    flex:1 1 auto;
+}
+.content-100{
+height: calc(100% - 26px);
+}
+.report-100{
+height: calc(100% - 56px);
+}
+.n-bar{
+max-height: 56px;
+}
+.no-decor-a{
+    text-decoration: none !important;
+    color: black;
+    transition: 0.3s;
+}
+.no-decor-a:hover{
+    text-decoration: none !important;
+    color: rgb(100, 100, 100) !important;
+    transition: 0.3s;
+}
+.cart-list{
+    height: 60vh;
+    overflow-y: auto;
+}
+.textSidebar{
+    font-size: medium;
+}
+.bg-blue-gradient{
+    background: linear-gradient(278.29deg, #29DFFF 30.05%, rgba(41, 223, 255, 0) 133.19%);
+    filter: drop-shadow(10px 15px 10px rgba(41, 223, 255, 0.25));
+}
+.bg-red-gradient{
+    background:linear-gradient(278.29deg, #FBB2B4 30.05%, rgba(255, 143, 178, 0) 133.19%);
+    filter: drop-shadow(10px 15px 10px rgba(255, 143, 178, 0.25));
+}
+.bg-purple-gradient{
+    background: linear-gradient(278.29deg, #AB84C8 30.05%, rgba(241, 201, 236, 0) 133.19%);
+    filter: drop-shadow(10px 15px 10px rgba(145, 123, 142, 0.25));
+}
+.fading-enter-active, .fading-leave-active {
+    transition: 1s;
+}
+.fading-enter, .fading-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+}
+.col-lg-2{
+    transition: 0.5s;
+}
+.col-0-5{
+    transition: 0.5s;
+}
+/* Large */
+@media only screen and (min-width:992px){
+    .col-0-5{
+        -ms-flex: 0 0 5%;
+        flex: 0 0 5%;
+        max-width: 5%;
+        position: relative;
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+}
+/* Medium */
+@media only screen and (max-width:991px){
+    .col-0-5{
+        -ms-flex: 0 0 10%;
+        flex: 0 0 10%;
+        max-width: 10%;
+        position: relative;
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+}
