@@ -26,7 +26,8 @@
 </head>
 
 <body>
-    <div class=" container-fluid p-0 h-100">
+    <div class="container-fluid p-0 h-100">
+        <!-- Navbar -->
         <div class="row no-gutters py-3 n-bar border">
             <div class="col-0-5 text-center">
                 <a href="javascript:void(0)" onclick="toggleSidebar()" class="no-decor-a">
@@ -34,59 +35,89 @@
                 </a>
             </div>
             <div class="col text-center">
-                <div class="row">
-                    <div class="col">
-                        <h5>Food Items</h5>
-                    </div>
-                    <div class="col-1">
-                        <div class="text-right pr-3">
-                            <h5><i class="lni lni-search-alt"></i></h5>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h5>Food Items</h5>
+                        </div>
+                        <div class="col-md-1 col-2">
+                            <div class="text-right">
+                                <h5><i class="lni lni-search-alt"></i></h5>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 text-center" id="badgeCart">
+                <!-- Get cart length for mobile devices sidebar cart button (VUE) -->
                 <h5>Cart <span class="badge badge-pill badge-info">{{dataCart.length}}</span></h5>
             </div>
         </div>
+        <!-- End Of Navbar -->
+
+        <!-- Grid bootstrap for sidebar, content and cart -->
         <div class="row h-100 no-gutters">
-            <div class="col-0-5" id="sideBar">
+            <!-- Manual grid for sidebar -->
+            <div class="col-0-5 border" id="sideBar">
                 <div class="container">
                     <div class="text-center">
-                        <div class="pt-4 ">
+                        <div class="pt-4">
+                            <!-- Current page -->
                             <h3 class="text-muted">
                                 <i class="lni lni-dinner"></i>
+                                <!-- Transition effect fade between hide and show -->
                                 <transition name="fading">
-                                    <span v-if="expand" class="textSidebar">Main</span>
+                                    <!-- This text is hided before menu toggled -->
+                                    <h3 v-if="expand" class="mb-2 textSidebar">Main</h3>
                                 </transition>
                             </h3>
                         </div>
+
+                        <!-- Link To Report Page -->
                         <div class="pt-4">
+                            <!-- Prevent redirect and warn if cart is'nt empty -->
                             <a href="javascript:void(0)" v-bind:onclick="`preventRedirect('./pages/report.html')`"
                                 class="no-decor-a">
                                 <h3>
                                     <i class="lni lni-pie-chart"></i>
                                     <transition name="fading">
-                                        <span v-if="expand" class="textSidebar">Report</span>
+                                        <h3 v-if="expand" class="textSidebar pb-2">Report</h3>
                                     </transition>
                                 </h3>
                             </a>
                         </div>
+
+                        <!-- Modal toggler for modal add item -->
                         <div class="pt-4">
                             <a href="javascript:void(0)" data-toggle="modal" data-target="#addItem"
                                 class="no-decor-a text-success">
                                 <h3>
                                     <i class="lni lni-plus"></i>
                                     <transition name="fading">
-                                        <span v-if="expand" class="textSidebar">Add Item</span>
+                                        <h3 v-if="expand" class="textSidebar pb-2">Add Item</h3>
                                     </transition>
                                 </h3>
+                            </a>
+                        </div>
+
+                        <!-- Modal toggler for modal cart (on breakpoint (< md)) -->
+                        <div class="pt-4 d-md-none">
+                            <a href="javascript:void(0)" data-toggle="modal" data-target="#cartModal"
+                                class="no-decor-a text-info">
+                                <h4 class="d-inline">
+                                    <i class="lni lni-cart-full"></i>
+                                    <span class="badge badge-light">
+                                        {{cart.length}}
+                                    </span>
+                                </h4>
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col content-100 bg-light py-3" id="content">
+
+            <!-- Content (Menu) -->
+            <div class="col content-100 bg-light" id="content">
                 <div class="container-fluid overflow-auto content-100">
                     <div class="row">
                         <div class="col-lg-4 col-md-6 pt-2" v-for="element in object">
@@ -98,12 +129,18 @@
                                         <h1 class="align-self-center"><i class="lni lni-checkmark-circle lni-lg"></i>
                                         </h1>
                                     </div>
-                                    <div class="image-content card-img-top"
-                                        v-bind:style="'background-image: url(./assets/images/' + element.image+')'">
-                                    </div>
-                                    <div class="card-body">
-                                        <h5>{{ element.name }}</h5>
-                                        <h6 class="font-weight-bold">{{ rupiahisasi(element.price) }}</h6>
+                                    <div class="row">
+                                        <div class="col-md-12 col">
+                                            <div class="image-content card-img-top"
+                                                v-bind:style="'background-image: url(./assets/images/' + element.image+')'">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col">
+                                            <div class="card-body">
+                                                <h5>{{ element.name }}</h5>
+                                                <h6 class="font-weight-bold">{{ rupiahisasi(element.price) }}</h6>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </a>
@@ -111,8 +148,12 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Cart for breakpoint (>= md) -->
             <div class="col-lg-4 col-md-4" id="cart">
                 <div class="container cart-list">
+
+                    <!-- If cart empty -->
                     <div v-if="dataCart.length < 1">
                         <div class="p-3 text-center">
                             <img src="./assets/images/nocart.svg" style="max-width: 200px;" alt="no-cart">
@@ -120,6 +161,8 @@
                             <p class="text-muted">Please add some items from the menu!</p>
                         </div>
                     </div>
+
+                    <!-- If cart not empty -->
                     <div v-else>
                         <div v-for="cartElement in dataCart">
                             <div v-for="element in allFromObj">
@@ -127,14 +170,15 @@
                                     <div class="card mb-3 w-100" v-bind:id="'cart-'+cartElement">
                                         <div class="row no-gutters">
                                             <div class="col-md-4">
-                                                <img v-bind:src="'./assets/images/' + element.image" class="card-img"
-                                                    v-bind:alt="'Photo Of '+ element.name">
+                                                <div v-bind:style="'background:url(./assets/images/' + element.image+')'"
+                                                    class="card-img" v-bind:alt="'Photo Of '+ element.name">
+                                                </div>
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="card-body">
                                                     <h6 class="card-title">{{ element.name }}</h6>
                                                     <div class="row">
-                                                        <div class="col-md">
+                                                        <div class="col-xl">
                                                             <div class="input-group input-group-sm">
                                                                 <div class="input-group-prepend" id="button-addon3">
                                                                     <button class="btn btn-danger" type="button"
@@ -152,7 +196,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg" v-bind:id="`price-`+ element.id">
+                                                        <div class="col-xl text-center pt-2"
+                                                            v-bind:id="`price-`+ element.id">
                                                             {{ rupiahisasi(element.price) }}</div>
                                                     </div>
                                                 </div>
@@ -164,6 +209,8 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- If cart not empty, show total price and button for checkout and cancel -->
                 <div class="foot h-100 d-flex" v-if="dataCart.length > 0">
                     <div class="container h-100">
                         <div class="align-self-center">
@@ -183,8 +230,95 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Modal Cart For breakpoint (< md) -->
+                <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Cart</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div v-for="cartElement in dataCart">
+                                    <div v-for="element in allFromObj">
+                                        <div v-if="cartElement == element.id">
+                                            <div class="card mb-3 w-100" v-bind:id="'cart-'+cartElement">
+                                                <div class="row no-gutters">
+                                                    <div class="col-4">
+                                                        <div v-bind:style="'background:url(./assets/images/' + element.image+')'"
+                                                            class="card-img" v-bind:alt="'Photo Of '+ element.name">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">{{ element.name }}</h5>
+                                                            <div class="row">
+                                                                <div class="col-xl">
+                                                                    <div class="input-group input-group-sm">
+                                                                        <div class="input-group-prepend"
+                                                                            id="button-addon3">
+                                                                            <button class="btn btn-danger" type="button"
+                                                                                v-bind:onclick="'decrement(`'+element.id +'`)'">
+                                                                                <i class="lni lni-minus"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                        <input type="number" class="form-control"
+                                                                            value="1"
+                                                                            v-bind:id="`amountModal-`+ element.id"
+                                                                            disabled>
+                                                                        <div class="input-group-append">
+                                                                            <button class="btn btn-info" type="button"
+                                                                                v-bind:onclick="'increment(`'+element.id +'`)'">
+                                                                                <i class="lni lni-plus"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl text-center pt-2 font-weight-bold"
+                                                                    v-bind:id="`priceModal-`+ element.id">
+                                                                    {{ rupiahisasi(element.price) }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Total in modal (breakpoint < md) -->
+                            <div class="modal-footer d-block">
+                                <div class="container">
+                                    <div class="row py-2">
+                                        <div class="col">
+                                            <h6 class="font-weight-bold">Total :</h6>
+                                        </div>
+                                        <div class="col">
+                                            <h6 class="font-weight-bold text-right">{{ rupiahisasi(price(priceOnCart))
+                                                }}*
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <p>*Belum termasuk ppn</p>
+                                    <button type="button" data-toggle="modal" data-target="#checkOut"
+                                        class="btn btn-info btn-sm btn-block">Checkout</button>
+                                    <button type="button" class="btn btn-danger btn-sm btn-block"
+                                        onclick="cancel()">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <!-- Modal add item -->
         <div class="modal fade" tabindex="-1" id="addItem">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -247,6 +381,8 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal checkout -->
         <div class="modal fade" tabindex="-1" id="checkOut">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -302,6 +438,7 @@
             </div>
         </div>
     </div>
+
     <!-- Own Script(s) -->
     <script src="./assets/scripts/scriptHome.js"></script>
     <!-- Bootstrap JS -->

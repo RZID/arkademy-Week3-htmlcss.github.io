@@ -1,3 +1,4 @@
+// Data all item
 const allObj = () => {
     return [
         {
@@ -66,20 +67,22 @@ const allObj = () => {
     ]
 }
 
+// Make number to rupiah
 const rupiahisasi = (number) => {
     return number.toLocaleString('id', { style: 'currency', currency: 'IDR' }).replace(",00", ",-").replace("Rp", "Rp.")
 }
+
+// Sidebar Toggler
 const toggleSidebar = () => {
     if ($("#sideBar").hasClass("col-0-5")) {
         $("#sideBar").removeClass("col-0-5")
-        $("#sideBar").addClass("col-lg-2 col-md-2")
+        $("#sideBar").addClass("col-lg-2 col-md-3 col-4")
         $(".textSidebar").addClass("show")
         $(".textSidebar").removeClass("hide")
         $("#iconSideBar").html(`<i class="lni lni-close"></i>`)
-
         vueInitSidebar.expand = true
     } else {
-        $("#sideBar").removeClass("col-lg-2 col-md-2")
+        $("#sideBar").removeClass("col-lg-2 col-md-3 col-4")
         $("#sideBar").addClass("col-0-5")
         $(".textSidebar").removeClass("show")
         $(".textSidebar").addClass("hide")
@@ -87,6 +90,8 @@ const toggleSidebar = () => {
         vueInitSidebar.expand = false
     }
 }
+
+// Cart Toggler
 const toggleCart = (id) => {
     const index = vueInitCart.dataCart.filter(el => el.indexOf(id) > -1)
     const indexOfDelete = vueInitCart.dataCart.indexOf(id)
@@ -99,6 +104,7 @@ const toggleCart = (id) => {
     changePrice(id)
 }
 
+// Event for changing price
 const changePrice = (id) => {
     $(document).ready(() => {
         const amount = Number($(`#amount-${id}`).val())
@@ -111,28 +117,35 @@ const changePrice = (id) => {
             vueInitCart.priceOnCart.push({ id: id, amount: amount, totalPrice: (amount * itemPrice) })
         }
         $(`#price-${id}`).html(rupiahisasi(amount * itemPrice))
+        $(`#priceModal-${id}`).html(rupiahisasi(amount * itemPrice))
     })
 }
 
+// Increment amount of item
 const increment = (id) => {
     let valOfAmount = $(`#amount-${id}`).val()
     const limit = 100
     if (Number(valOfAmount) < limit) {
         $(`#amount-${id}`).val(Number(valOfAmount) + 1)
+        $(`#amountModal-${id}`).val(Number(valOfAmount) + 1)
     }
     return changePrice(id)
 }
 
+// Decrement amount of item
 const decrement = (id) => {
     let valOfAmount = $(`#amount-${id}`).val()
     const limit = 1
     if (Number(valOfAmount) > limit) {
         $(`#amount-${id}`).val(Number(valOfAmount) - 1)
+        $(`#amountModal-${id}`).val(Number(valOfAmount) - 1)
     }
     return changePrice(id)
 }
 
+// Function Cancel order(s)
 const cancel = () => {
+    // SweetAlert2
     Swal.fire({
         title: 'Are you sure?',
         text: `Are you sure you want to delete item(s) on cart?`,
@@ -146,15 +159,13 @@ const cancel = () => {
         }
     })
 }
-const vueInitSidebar = new Vue({
-    el: "#sideBar",
-    data: {
-        expand: false
-    }
-})
+
+// Transit between two initialization vue data
 const getCartData = () => {
     return vueInitCart.dataCart
 }
+
+// Vue initialisation of cart element
 const vueInitCart = new Vue({
     el: "#cart",
     data: {
@@ -171,6 +182,17 @@ const vueInitCart = new Vue({
         }
     },
 })
+
+// Vue initialisation of sidebar element
+const vueInitSidebar = new Vue({
+    el: "#sideBar",
+    data: {
+        cart: getCartData(),
+        expand: false
+    }
+})
+
+// Vue initialization of content (menu) element
 const vueInitContent = new Vue({
     el: "#content",
     data: {
@@ -180,9 +202,13 @@ const vueInitContent = new Vue({
         toggleCart: toggleCart
     }
 })
+
+// Transit between two initialization vue data
 const getPriceOnCart = () => {
     return vueInitCart.priceOnCart
 }
+
+// Vue initialization of checkout element 
 const vueInitCheckOut = new Vue({
     el: "#checkOut",
     data: {
@@ -200,6 +226,7 @@ const vueInitCheckOut = new Vue({
     }
 })
 
+// Badge counter element length
 const vueInitBadgeCart = new Vue({
     el: "#badgeCart",
     data: {
@@ -207,6 +234,7 @@ const vueInitBadgeCart = new Vue({
     }
 })
 
+// Function for preventing redirect if cart is'nt empty
 const preventRedirect = (url) => {
     if (getCartData().length > 0) {
         Swal.fire({

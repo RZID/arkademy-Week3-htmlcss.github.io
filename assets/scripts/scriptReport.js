@@ -1,3 +1,4 @@
+// Sidebar toggler
 const toggleSidebar = () => {
     if ($("#sideBar").hasClass("col-0-5")) {
         $("#sideBar").removeClass("col-0-5")
@@ -16,6 +17,8 @@ const toggleSidebar = () => {
         vueInitSidebar.expand = false
     }
 }
+
+// All data in array of objects
 const objOrder = () => {
     return [
         {
@@ -34,12 +37,16 @@ const objOrder = () => {
         },
     ]
 }
+
+// Vue initialization for sidebar element
 const vueInitSidebar = new Vue({
     el: "#sideBar",
     data: {
-        expand: false
+        expand: false,
     }
 })
+
+// Vue initialization for content element
 const vueInitReportContent = new Vue({
     el: "#reportContent",
     data: {
@@ -49,9 +56,11 @@ const vueInitReportContent = new Vue({
         yearIncome: 100000000000
     },
     methods: {
+        // Number to rupiah
         toRupiah: (number) => {
             return number.toLocaleString('id', { style: 'currency', currency: 'IDR' }).replace(",00", ",-").replace("Rp", "Rp.")
         },
+        // Number separator
         toSeparateNumber: (number) => {
             return number.toLocaleString().replace(",", ".")
         }
