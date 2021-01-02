@@ -5,7 +5,7 @@ Made with :heart: by RZIDInc
 
 ---
 
-Using: VueJS v2.6.12, Bootstrap 4.5, (HTML CSS JS), jQuery, SweetAlert2, Lineicons and other assets like image and other assets that are components in this project.
+Using: VueJS v2.6.12, Bootstrap 4.5, (HTML CSS JS), jQuery, SweetAlert2, Lineicons and other assets like image that are components in this project.
 
 ---
 
