@@ -9,8 +9,8 @@ Using: VueJS v2.6.12, Bootstrap 4.5, (HTML CSS JS), jQuery, SweetAlert2, Lineico
 
 ---
 
-Demo : (https://rzid.github.io/arkademy-Week3-htmlcss.github.io)
+Demo : https://rzid.github.io/arkademy-Week3-htmlcss.github.io
 
 ---
 
-## Thank's :smile:
+## Thank's :relaxed:
