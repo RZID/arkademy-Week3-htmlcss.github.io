@@ -101,7 +101,7 @@
                         </div>
 
                         <!-- Modal toggler for modal cart (on breakpoint (< md)) -->
-                        <div class="pt-4 d-md-none">
+                        <div class="pt-4 d-md-none" v-if="cart.length > 0">
                             <a href="javascript:void(0)" data-toggle="modal" data-target="#cartModal"
                                 class="no-decor-a text-info">
                                 <h4 class="d-inline">
