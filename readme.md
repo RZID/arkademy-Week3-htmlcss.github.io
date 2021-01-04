@@ -9,7 +9,7 @@ Using: VueJS v2.6.12, Bootstrap 4.5, (HTML CSS JS), jQuery, SweetAlert2, Lineico
 
 ---
 ## Related Link's
-Demo            : https://rzid.github.io/arkademy-Week3-htmlcss.github.io/
+Demo            : https://rzidinc-posapp.netlify.app/
 
 Presentation    : https://docs.google.com/presentation/d/1pjmnswuG_rh2pX1HBQ6pwAQLaGFuc7I_eIS1YQOLIJc/edit?usp=sharing
 
