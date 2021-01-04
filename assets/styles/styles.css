@@ -46,6 +46,7 @@ transition: 0.2s;
 
 .card-img-top {
     min-height: 150px;
+    max-height: 250px;
     background-position: center !important;
     background-repeat: no-repeat !important;
     background-size: cover !important;
